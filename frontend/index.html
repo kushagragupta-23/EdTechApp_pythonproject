@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>EduVerse — EdTech Platform</title>
+  <meta name="description" content="EduVerse: Minimalist e-learning platform for managing courses, users, enrollments, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Prevent FOUC: apply saved theme before paint -->
+  <script>
+  {
+    const saved = localStorage.getItem("color-scheme");
+    if (saved) document.querySelector('meta[name="color-scheme"]').content = saved;
+  }
+  </script>
+
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Design tokens ── */
+    :root {
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --mono: 'SF Mono', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
+      --radius: 8px;
+      --radius-sm: 6px;
+      --transition: 150ms ease;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+
+      /* Light (default) */
+      --bg: #ffffff;
+      --bg-subtle: #fafafa;
+      --surface: #ffffff;
+      --surface-hover: #f5f5f5;
+      --border: #e5e5e5;
+      --border-subtle: #f0f0f0;
+      --text-primary: #0a0a0a;
+      --text-secondary: #666666;
+      --text-tertiary: #999999;
+      --accent: #0a0a0a;
+      --accent-fg: #ffffff;
+      --danger: #dc2626;
+      --success: #16a34a;
+
+      color-scheme: light dark;
+    }
+
+    /* Dark mode via system preference */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0a0a0a;
+        --bg-subtle: #111111;
+        --surface: #141414;
+        --surface-hover: #1a1a1a;
+        --border: #262626;
+        --border-subtle: #1a1a1a;
+        --text-primary: #ededed;
+        --text-secondary: #a0a0a0;
+        --text-tertiary: #666666;
+        --accent: #ededed;
+        --accent-fg: #0a0a0a;
+        --danger: #ef4444;
+        --success: #22c55e;
+      }
+    }
+
+    /* Manual overrides via class on html */
+    html.light {
+      --bg: #ffffff;
+      --bg-subtle: #fafafa;
+      --surface: #ffffff;
+      --surface-hover: #f5f5f5;
+      --border: #e5e5e5;
+      --border-subtle: #f0f0f0;
+      --text-primary: #0a0a0a;
+      --text-secondary: #666666;
+      --text-tertiary: #999999;
+      --accent: #0a0a0a;
+      --accent-fg: #ffffff;
+      --danger: #dc2626;
+      --success: #16a34a;
+    }
+    html.dark {
+      --bg: #0a0a0a;
+      --bg-subtle: #111111;
+      --surface: #141414;
+      --surface-hover: #1a1a1a;
+      --border: #262626;
+      --border-subtle: #1a1a1a;
+      --text-primary: #ededed;
+      --text-secondary: #a0a0a0;
+      --text-tertiary: #666666;
+      --accent: #ededed;
+      --accent-fg: #0a0a0a;
+      --danger: #ef4444;
+      --success: #22c55e;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── App shell ── */
+    .app { display: flex; min-height: 100vh; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 220px;
+      min-height: 100vh;
+      border-right: 1px solid var(--border);
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 100;
+    }
+
+    .sidebar-brand {
+      padding: var(--space-lg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-name {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      transition: background var(--transition), color var(--transition);
+    }
+    .theme-toggle:hover { background: var(--surface-hover); color: var(--text-primary); }
+    .theme-toggle svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .sidebar-nav { flex: 1; padding: var(--space-sm) var(--space-sm); overflow-y: auto; }
+    .nav-group-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+      padding: var(--space-md) var(--space-sm) var(--space-xs);
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+      user-select: none;
+      margin-bottom: 1px;
+    }
+    .nav-item svg {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2;
+      flex-shrink: 0;
+    }
+    .nav-item:hover { background: var(--surface-hover); color: var(--text-primary); }
+    .nav-item.active { background: var(--accent); color: var(--accent-fg); }
+
+    .sidebar-footer {
+      padding: var(--space-md);
+      border-top: 1px solid var(--border);
+      font-size: 0.6875rem;
+      color: var(--text-tertiary);
+    }
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+    .status-dot.offline { background: var(--danger); }
+
+    /* ── Main ── */
+    .main { margin-left: 220px; flex: 1; min-width: 0; }
+
+    .topbar {
+      padding: var(--space-lg) var(--space-xl);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 50;
+    }
+    .topbar-title { font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.01em; }
+    .topbar-sub { font-size: 0.75rem; color: var(--text-tertiary); }
+
+    .content { padding: var(--space-xl); max-width: 1100px; }
+
+    /* ── Section panels ── */
+    .section { display: none; animation: fadeIn 200ms ease; }
+    .section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* ── Stat cards (dashboard) ── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+    .stat-card {
+      padding: var(--space-lg) var(--space-md);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: background var(--transition);
+    }
+    .stat-card:hover { background: var(--surface-hover); }
+    .stat-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label { font-size: 0.75rem; color: var(--text-tertiary); font-weight: 500; }
+
+    /* ── Panel ── */
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: var(--space-lg);
+    }
+    .panel-header {
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-subtle);
+      gap: 12px;
+    }
+    .panel-title { font-size: 0.8125rem; font-weight: 600; white-space: nowrap; }
+    .panel-controls { display: flex; gap: 8px; align-items: center; flex: 1; justify-content: flex-end; }
+    .panel-body { padding: var(--space-lg); }
+    .panel-footer {
+      padding: var(--space-sm) var(--space-lg);
+      border-top: 1px solid var(--border);
+      background: var(--bg-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ── Forms ── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--space-md);
+    }
+    .form-group { display: flex; flex-direction: column; gap: 4px; }
+    .form-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.01em;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 7px 10px;
+      font-family: var(--font);
+      font-size: 0.8125rem;
+      color: var(--text-primary);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--text-tertiary);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-tertiary); }
+    .form-select { appearance: none; cursor: pointer; }
+    .form-textarea { resize: vertical; min-height: 64px; }
+    .form-full { grid-column: 1 / -1; }
+
+    /* ── Search Input ── */
+    .search-input {
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      width: 200px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text-primary);
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-family: var(--font);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background var(--transition), opacity var(--transition);
+      outline: none;
+      white-space: nowrap;
+    }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--accent-fg);
+      border-color: var(--accent);
+    }
+    .btn-primary:hover:not(:disabled) { opacity: 0.85; }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border-color: var(--border);
+    }
+    .btn-secondary:hover:not(:disabled) { background: var(--surface-hover); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: none;
+      padding: 4px 8px;
+    }
+    .btn-ghost:hover:not(:disabled) { color: var(--text-primary); }
+    .btn-danger {
+      background: transparent;
+      color: var(--danger);
+      border-color: var(--border);
+    }
+    .btn-danger:hover:not(:disabled) { background: var(--surface-hover); }
+    .btn-sm { padding: 4px 10px; font-size: 0.75rem; }
+
+    .form-actions { margin-top: var(--space-md); display: flex; gap: var(--space-sm); }
+
+    /* ── Pagination ── */
+    .pagination-info { font-size: 0.75rem; color: var(--text-secondary); }
+    .pagination-controls { display: flex; gap: 4px; }
+
+    /* ── Toast ── */
+    #toast-container {
+      position: fixed;
+      bottom: var(--space-lg);
+      right: var(--space-lg);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: var(--space-sm);
+    }
+    .toast {
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      background: var(--text-primary);
+      color: var(--bg);
+      animation: toastIn 200ms ease, toastOut 200ms ease 3.5s forwards;
+      max-width: 320px;
+    }
+    .toast.error { background: var(--danger); color: #fff; }
+    @keyframes toastIn  { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes toastOut { to { opacity: 0; transform: translateY(8px); } }
+
+    /* ── Table ── */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      padding: 8px 12px;
+      text-align: left;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid var(--border-subtle); transition: background var(--transition); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--surface-hover); }
+    tbody td { padding: 8px 12px; font-size: 0.8125rem; }
+    .empty-state {
+      padding: var(--space-2xl) var(--space-lg);
+      text-align: center;
+      color: var(--text-tertiary);
+      font-size: 0.8125rem;
+    }
+
+    /* ── Badges ── */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+    }
+    .badge-active { color: var(--success); }
+    .badge-inactive { color: var(--danger); }
+
+    .mono { font-family: var(--mono); font-size: 0.75rem; }
+
+    /* ── AI section cards ── */
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--space-md);
+    }
+    .ai-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--space-lg);
+    }
+    .ai-card-title { font-size: 0.8125rem; font-weight: 600; margin-bottom: var(--space-md); }
+    .ai-card-output {
+      margin-top: var(--space-md);
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* ── Loader ── */
+    .loader {
+      display: inline-block;
+      width: 14px; height: 14px;
+      border: 1.5px solid var(--border);
+      border-top-color: var(--text-primary);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; }
+      .content { padding: var(--space-md); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="toast-container"></div>
+
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-name">EduVerse</span>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <!-- Sun icon (shown in dark mode) -->
+        <svg id="icon-sun" style="display:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <!-- Moon icon (shown in light mode) -->
+        <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-group-label">Overview</div>
+      <div class="nav-item active" id="nav-dashboard" onclick="go('dashboard')"><i data-lucide="layout-dashboard"></i>Dashboard</div>
+
+      <div class="nav-group-label">Manage</div>
+      <div class="nav-item" id="nav-users" onclick="go('users')"><i data-lucide="users"></i>Users</div>
+      <div class="nav-item" id="nav-courses" onclick="go('courses')"><i data-lucide="book-open"></i>Courses</div>
+      <div class="nav-item" id="nav-enrollments" onclick="go('enrollments')"><i data-lucide="user-plus"></i>Enrollments</div>
+      
+      <div class="nav-group-label">Learning</div>
+      <div class="nav-item" id="nav-assignments" onclick="go('assignments')"><i data-lucide="clipboard-list"></i>Assignments</div>
+      <div class="nav-item" id="nav-progress" onclick="go('progress')"><i data-lucide="trending-up"></i>Progress</div>
+      <div class="nav-item" id="nav-announcements" onclick="go('announcements')"><i data-lucide="megaphone"></i>Announcements</div>
+
+      <div class="nav-group-label">Records</div>
+      <div class="nav-item" id="nav-payments" onclick="go('payments')"><i data-lucide="credit-card"></i>Payments</div>
+      <div class="nav-item" id="nav-reviews" onclick="go('reviews')"><i data-lucide="message-square"></i>Reviews</div>
+      <div class="nav-item" id="nav-certifications" onclick="go('certifications')"><i data-lucide="award"></i>Certifications</div>
+
+      <div class="nav-group-label">Tools</div>
+      <div class="nav-item" id="nav-ai" onclick="go('ai')"><i data-lucide="bot"></i>AI Tools</div>
+    </nav>
+    <div class="sidebar-footer">
+      <div style="margin-bottom: 12px;">
+        <span style="font-weight: 600; color: var(--text-primary);">Team Members:</span><br>
+        Kushagra Gupta<br>
+        Aishwarya Nevrekar<br>
+        Sampad Kar<br>
+        Niladri Ghosh<br>
+        Jayanth Vukkisa
+      </div>
+      <span class="status-indicator">
+        <span class="status-dot" id="status-dot"></span>
+        <span id="status-text">Checking…</span>
+      </span>
+      <div id="status-version" style="margin-top: 4px; color: var(--text-secondary);"></div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <span class="topbar-title" id="topbar-title">Dashboard</span>
+      <span class="topbar-sub" id="topbar-sub">Overview</span>
+    </div>
+
+    <div class="content">
+
+      <!-- Dashboard -->
+      <div class="section active" id="s-dashboard">
+        <div class="stat-row" id="stat-row">
+          <div class="stat-card"><div class="stat-value" id="c-users">–</div><div class="stat-label">Users</div></div>
+          <div class="stat-card"><div class="stat-value" id="c-courses">–</div><div class="stat-label">Courses</div></div>
+          <div class="stat-card"><div class="stat-value" id="c-enrollments">–</div><div class="stat-label">Enrollments</div></div>
+          <div class="stat-card"><div class="stat-value" id="c-assignments">–</div><div class="stat-label">Assignments</div></div>
+          <div class="stat-card"><div class="stat-value" id="c-payments">–</div><div class="stat-label">Payments</div></div>
+          <div class="stat-card"><div class="stat-value" id="c-certs">–</div><div class="stat-label">Certificates</div></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Recent courses</span>
+            <button class="btn btn-ghost btn-sm" onclick="loadDashboard()">Refresh</button>
+          </div>
+          <div class="table-wrap">
+            <table id="dash-table">
+              <thead><tr><th>ID</th><th>Name</th><th>Title</th><th>Category</th><th>Duration</th><th>Status</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Users -->
+      <div class="section" id="s-users">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Users</span>
+            <div class="panel-controls">
+              <input type="text" class="search-input" id="search-users" placeholder="Search name or email..." onkeyup="if(event.key==='Enter') loadUsers(0)" />
+              <button class="btn btn-secondary btn-sm" onclick="loadUsers(0)">Search</button>
+              <button class="btn btn-primary btn-sm" onclick="toggle('user-form-wrap')">New user</button>
+            </div>
+          </div>
+          <div class="panel-body" id="user-form-wrap" style="display:none; border-bottom:1px solid var(--border);">
+            <form id="user-form" class="form-grid" onsubmit="submitUser(event)">
+              <div class="form-group"><label class="form-label">Name</label><input class="form-input" id="u-name" required placeholder="Alice Smith" /></div>
+              <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="u-email" type="email" required placeholder="alice@mail.com" /></div>
+              <div class="form-group"><label class="form-label">Phone</label><input class="form-input" id="u-phone" placeholder="Optional" /></div>
+              <div class="form-group"><label class="form-label">Age</label><input class="form-input" id="u-age" type="number" min="1" placeholder="24" /></div>
+              <div class="form-group"><label class="form-label">Role</label>
+                <select class="form-select" id="u-role" required><option value="">Select…</option><option value="student">Student</option><option value="instructor">Instructor</option><option value="admin">Admin</option></select>
+              </div>
+              <div class="form-group"><label class="form-label">Gender</label>
+                <select class="form-select" id="u-gender"><option value="">—</option><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option></select>
+              </div>
+              <div class="form-group form-full"><label class="form-label">Bio</label><textarea class="form-textarea" id="u-bio" placeholder="Optional bio"></textarea></div>
+              <div class="form-actions form-full">
+                <button type="submit" class="btn btn-primary" id="user-btn">Create</button>
+                <button type="button" class="btn btn-secondary" onclick="toggle('user-form-wrap')">Cancel</button>
+              </div>
+            </form>
+          </div>
+          <div class="table-wrap">
+            <table id="users-table">
+              <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Created</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="panel-footer">
+            <span class="pagination-info" id="users-page-info">Showing 0 of 0</span>
+            <div class="pagination-controls">
+              <button class="btn btn-secondary btn-sm" id="users-prev" onclick="loadUsers(currentPage.users - limit)">Prev</button>
+              <button class="btn btn-secondary btn-sm" id="users-next" onclick="loadUsers(currentPage.users + limit)">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Courses -->
+      <div class="section" id="s-courses">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Courses</span>
+            <div class="panel-controls">
+              <input type="text" class="search-input" id="search-courses" placeholder="Search name or title..." onkeyup="if(event.key==='Enter') loadCourses(0)" />
+              <button class="btn btn-secondary btn-sm" onclick="loadCourses(0)">Search</button>
+              <button class="btn btn-primary btn-sm" onclick="toggle('course-form-wrap')">New course</button>
+            </div>
+          </div>
+          <div class="panel-body" id="course-form-wrap" style="display:none; border-bottom:1px solid var(--border);">
+            <form id="course-form" class="form-grid" onsubmit="submitCourse(event)">
+              <div class="form-group"><label class="form-label">Code</label><input class="form-input" id="c-name" required placeholder="CS101" /></div>
+              <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="c-title" required placeholder="Intro to CS" /></div>
+              <div class="form-group"><label class="form-label">Category</label><input class="form-input" id="c-cat" placeholder="Technology" /></div>
+              <div class="form-group"><label class="form-label">Duration</label><input class="form-input" id="c-dur" placeholder="12 weeks" /></div>
+              <div class="form-group"><label class="form-label">Instructor ID</label><input class="form-input" id="c-instr" type="number" placeholder="Optional" /></div>
+              <div class="form-group"><label class="form-label">Video Link</label><input class="form-input" id="c-vid" placeholder="https://…" /></div>
+              <div class="form-group form-full"><label class="form-label">Description</label><textarea class="form-textarea" id="c-desc" placeholder="Course description"></textarea></div>
+              <div class="form-group form-full"><label class="form-label">Prerequisites</label><input class="form-input" id="c-prereq" placeholder="Algebra, basics…" /></div>
+              <div class="form-actions form-full">
+                <button type="submit" class="btn btn-primary" id="course-btn">Create</button>
+                <button type="button" class="btn btn-secondary" onclick="toggle('course-form-wrap')">Cancel</button>
+              </div>
+            </form>
+          </div>
+          <div class="table-wrap">
+            <table id="courses-table">
+              <thead><tr><th>ID</th><th>Code</th><th>Title</th><th>Category</th><th>Duration</th><th>Instructor</th><th>Status</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="panel-footer">
+            <span class="pagination-info" id="courses-page-info">Showing 0 of 0</span>
+            <div class="pagination-controls">
+              <button class="btn btn-secondary btn-sm" id="courses-prev" onclick="loadCourses(currentPage.courses - limit)">Prev</button>
+              <button class="btn btn-secondary btn-sm" id="courses-next" onclick="loadCourses(currentPage.courses + limit)">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Assignments (NEW) -->
+      <div class="section" id="s-assignments">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Assignments</span>
+            <button class="btn btn-primary btn-sm" onclick="toggle('assignment-form-wrap')">New Assignment</button>
+          </div>
+          <div class="panel-body" id="assignment-form-wrap" style="display:none; border-bottom:1px solid var(--border);">
+            <form id="assignment-form" class="form-grid" onsubmit="submitAssignment(event)">
+              <div class="form-group"><label class="form-label">Course ID</label><input class="form-input" id="a-cid" type="number" required /></div>
+              <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="a-title" required /></div>
+              <div class="form-group"><label class="form-label">Max Score</label><input class="form-input" id="a-score" type="number" step="0.1" /></div>
+              <div class="form-group form-full"><label class="form-label">Description</label><textarea class="form-textarea" id="a-desc"></textarea></div>
+              <div class="form-actions form-full">
+                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="button" class="btn btn-secondary" onclick="toggle('assignment-form-wrap')">Cancel</button>
+              </div>
+            </form>
+          </div>
+          <div class="table-wrap">
+            <table id="assignments-table">
+              <thead><tr><th>ID</th><th>Course</th><th>Title</th><th>Max Score</th><th>Created</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="panel-footer">
+            <span class="pagination-info" id="assignments-page-info"></span>
+            <div class="pagination-controls">
+              <button class="btn btn-secondary btn-sm" id="assignments-prev" onclick="loadAssignments(currentPage.assignments - limit)">Prev</button>
+              <button class="btn btn-secondary btn-sm" id="assignments-next" onclick="loadAssignments(currentPage.assignments + limit)">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress (NEW) -->
+      <div class="section" id="s-progress">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Student Progress</span>
+            <button class="btn btn-primary btn-sm" onclick="toggle('progress-form-wrap')">Update Progress</button>
+          </div>
+          <div class="panel-body" id="progress-form-wrap" style="display:none; border-bottom:1px solid var(--border);">
+            <form id="progress-form" class="form-grid" onsubmit="submitProgress(event)">
+              <div class="form-group"><label class="form-label">Student ID</label><input class="form-input" id="p-sid" type="number" required /></div>
+              <div class="form-group"><label class="form-label">Course ID</label><input class="form-input" id="p-cid" type="number" required /></div>
+              <div class="form-group"><label class="form-label">Completion %</label><input class="form-input" id="p-pct" type="number" step="0.1" max="100" /></div>
+              <div class="form-group"><label class="form-label">Status</label>
+                <select class="form-select" id="p-status"><option value="not_started">Not Started</option><option value="in_progress">In Progress</option><option value="completed">Completed</option></select>
+              </div>
+              <div class="form-actions form-full">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" onclick="toggle('progress-form-wrap')">Cancel</button>
+              </div>
+            </form>
+          </div>
+          <div class="table-wrap">
+            <table id="progress-table">
+              <thead><tr><th>ID</th><th>Student</th><th>Course</th><th>Progress</th><th>Status</th><th>Last Accessed</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="panel-footer">
+            <span class="pagination-info" id="progress-page-info"></span>
+            <div class="pagination-controls">
+              <button class="btn btn-secondary btn-sm" id="progress-prev" onclick="loadProgress(currentPage.progress - limit)">Prev</button>
+              <button class="btn btn-secondary btn-sm" id="progress-next" onclick="loadProgress(currentPage.progress + limit)">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Announcements (NEW) -->
+      <div class="section" id="s-announcements">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Announcements</span>
+            <button class="btn btn-primary btn-sm" onclick="toggle('announce-form-wrap')">New Announcement</button>
+          </div>
+          <div class="panel-body" id="announce-form-wrap" style="display:none; border-bottom:1px solid var(--border);">
+            <form id="announce-form" class="form-grid" onsubmit="submitAnnouncement(event)">
+              <div class="form-group"><label class="form-label">Course ID</label><input class="form-input" id="an-cid" type="number" required /></div>
+              <div class="form-group"><label class="form-label">Author ID</label><input class="form-input" id="an-aid" type="number" required /></div>
+              <div class="form-group form-full"><label class="form-label">Title</label><input class="form-input" id="an-title" required /></div>
+              <div class="form-group form-full"><label class="form-label">Content</label><textarea class="form-textarea" id="an-content" required></textarea></div>
+              <div class="form-actions form-full">
+                <button type="submit" class="btn btn-primary">Post</button>
+                <button type="button" class="btn btn-secondary" onclick="toggle('announce-form-wrap')">Cancel</button>
+              </div>
+            </form>
+          </div>
+          <div class="table-wrap">
+            <table id="announcements-table">
+              <thead><tr><th>ID</th><th>Course</th><th>Author</th><th>Title</th><th>Date</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="panel-footer">
+            <span class="pagination-info" id="announcements-page-info"></span>
+            <div class="pagination-controls">
+              <button class="btn btn-secondary btn-sm" id="announcements-prev" onclick="loadAnnouncements(currentPage.announcements - limit)">Prev</button>
+              <button class="btn btn-secondary btn-sm" id="announcements-next" onclick="loadAnnouncements(currentPage.announcements + limit)">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enrollments -->
+      <div class="section" id="s-enrollments">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Enrollments</span>
+            <button class="btn btn-primary btn-sm" onclick="toggle('enroll-form-wrap')">Enroll</button>
+          </div>
+          <div class="panel-body" id="enroll-form-wrap" style="display:none; border-bottom:1px solid var(--border);">
+            <form id="enroll-form" class="form-grid" onsubmit="submitEnroll(event)">
+              <div class="form-group"><label class="form-label">Student ID</label><input class="form-input" id="en-sid" type="number" required /></div>
+              <div class="form-group"><label class="form-label">Course ID</label><input class="form-input" id="en-cid" type="number" required /></div>
+              <div class="form-group"><label class="form-label">Payment ID</label><input class="form-input" id="en-pid" type="number" placeholder="Optional" /></div>
+              <div class="form-actions form-full">
+                <button type="submit" class="btn btn-primary">Enroll</button>
+                <button type="button" class="btn btn-secondary" onclick="toggle('enroll-form-wrap')">Cancel</button>
+              </div>
+            </form>
+          </div>
+          <div class="table-wrap">
+            <table id="enrollments-table">
+              <thead><tr><th>ID</th><th>Student</th><th>Course</th><th>Payment</th><th>Date</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="panel-footer">
+            <span class="pagination-info" id="enrollments-page-info"></span>
+            <div class="pagination-controls">
+              <button class="btn btn-secondary btn-sm" id="enrollments-prev" onclick="loadEnrollments(currentPage.enrollments - limit)">Prev</button>
+              <button class="btn btn-secondary btn-sm" id="enrollments-next" onclick="loadEnrollments(currentPage.enrollments + limit)">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payments -->
+      <div class="section" id="s-payments">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Payments</span>
+            <button class="btn btn-primary btn-sm" onclick="toggle('pay-form-wrap')">Record</button>
+          </div>
+          <div class="panel-body" id="pay-form-wrap" style="display:none; border-bottom:1px solid var(--border);">
+            <form id="pay-form" class="form-grid" onsubmit="submitPayment(event)">
+              <div class="form-group"><label class="form-label">Student ID</label><input class="form-input" id="py-sid" type="number" required /></div>
+              <div class="form-group"><label class="form-label">Course ID</label><input class="form-input" id="py-cid" type="number" required /></div>
+              <div class="form-group"><label class="form-label">Transaction ID</label><input class="form-input" id="py-txn" required placeholder="TXN-00001" /></div>
+              <div class="form-actions form-full">
+                <button type="submit" class="btn btn-primary">Record</button>
+                <button type="button" class="btn btn-secondary" onclick="toggle('pay-form-wrap')">Cancel</button>
+              </div>
+            </form>
+          </div>
+          <div class="table-wrap">
+            <table id="payments-table">
+              <thead><tr><th>ID</th><th>Student</th><th>Course</th><th>Transaction</th><th>Date</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="panel-footer">
+            <span class="pagination-info" id="payments-page-info"></span>
+            <div class="pagination-controls">
+              <button class="btn btn-secondary btn-sm" id="payments-prev" onclick="loadPayments(currentPage.payments - limit)">Prev</button>
+              <button class="btn btn-secondary btn-sm" id="payments-next" onclick="loadPayments(currentPage.payments + limit)">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="section" id="s-reviews">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Reviews</span>
+            <button class="btn btn-primary btn-sm" onclick="toggle('rev-form-wrap')">Add review</button>
+          </div>
+          <div class="panel-body" id="rev-form-wrap" style="display:none; border-bottom:1px solid var(--border);">
+            <form id="rev-form" class="form-grid" onsubmit="submitReview(event)">
+              <div class="form-group"><label class="form-label">Student ID</label><input class="form-input" id="rv-sid" type="number" required /></div>
+              <div class="form-group"><label class="form-label">Course ID</label><input class="form-input" id="rv-cid" type="number" required /></div>
+              <div class="form-group form-full"><label class="form-label">Review</label><textarea class="form-textarea" id="rv-desc" required placeholder="Write review…"></textarea></div>
+              <div class="form-actions form-full">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-secondary" onclick="toggle('rev-form-wrap')">Cancel</button>
+              </div>
+            </form>
+          </div>
+          <div class="table-wrap">
+            <table id="reviews-table">
+              <thead><tr><th>ID</th><th>Student</th><th>Course</th><th>Review</th><th>Active</th><th>Date</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="panel-footer">
+            <span class="pagination-info" id="reviews-page-info"></span>
+            <div class="pagination-controls">
+              <button class="btn btn-secondary btn-sm" id="reviews-prev" onclick="loadReviews(currentPage.reviews - limit)">Prev</button>
+              <button class="btn btn-secondary btn-sm" id="reviews-next" onclick="loadReviews(currentPage.reviews + limit)">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="section" id="s-certifications">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Certifications</span>
+            <button class="btn btn-primary btn-sm" onclick="toggle('cert-form-wrap')">Issue</button>
+          </div>
+          <div class="panel-body" id="cert-form-wrap" style="display:none; border-bottom:1px solid var(--border);">
+            <form id="cert-form" class="form-grid" onsubmit="submitCert(event)">
+              <div class="form-group"><label class="form-label">Student ID</label><input class="form-input" id="ct-sid" type="number" required /></div>
+              <div class="form-group"><label class="form-label">Course ID</label><input class="form-input" id="ct-cid" type="number" required /></div>
+              <div class="form-group form-full"><label class="form-label">Certificate URL</label><input class="form-input" id="ct-url" placeholder="https://…" /></div>
+              <div class="form-actions form-full">
+                <button type="submit" class="btn btn-primary">Issue</button>
+                <button type="button" class="btn btn-secondary" onclick="toggle('cert-form-wrap')">Cancel</button>
+              </div>
+            </form>
+          </div>
+          <div class="table-wrap">
+            <table id="certs-table">
+              <thead><tr><th>ID</th><th>Student</th><th>Course</th><th>URL</th><th>Issued</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="panel-footer">
+            <span class="pagination-info" id="certifications-page-info"></span>
+            <div class="pagination-controls">
+              <button class="btn btn-secondary btn-sm" id="certifications-prev" onclick="loadCerts(currentPage.certifications - limit)">Prev</button>
+              <button class="btn btn-secondary btn-sm" id="certifications-next" onclick="loadCerts(currentPage.certifications + limit)">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Tools -->
+      <div class="section" id="s-ai">
+        <div class="ai-grid">
+          <div class="ai-card">
+            <div class="ai-card-title">Ask a question</div>
+            <input class="form-input" id="ai-q" placeholder="What is machine learning?" />
+            <button class="btn btn-primary btn-sm" style="margin-top:var(--space-sm)" onclick="aiAsk()">Ask</button>
+            <div class="ai-card-output" id="ai-q-out"></div>
+          </div>
+          <div class="ai-card">
+            <div class="ai-card-title">Quiz generator</div>
+            <input class="form-input" id="ai-qz-cid" type="number" placeholder="Course ID" style="margin-bottom:var(--space-sm)" />
+            <input class="form-input" id="ai-qz-n" type="number" placeholder="Questions (default 5)" />
+            <button class="btn btn-primary btn-sm" style="margin-top:var(--space-sm)" onclick="aiQuiz()">Generate</button>
+            <div class="ai-card-output" id="ai-qz-out"></div>
+          </div>
+          <div class="ai-card">
+            <div class="ai-card-title">Virtual teacher</div>
+            <input class="form-input" id="ai-vt-cid" type="number" placeholder="Course ID" style="margin-bottom:var(--space-sm)" />
+            <input class="form-input" id="ai-vt-q" placeholder="Your question" />
+            <button class="btn btn-primary btn-sm" style="margin-top:var(--space-sm)" onclick="aiTeacher()">Ask</button>
+            <div class="ai-card-output" id="ai-vt-out"></div>
+          </div>
+          <div class="ai-card">
+            <div class="ai-card-title">Research finder</div>
+            <input class="form-input" id="ai-rs-d" placeholder="e.g. Artificial Intelligence" />
+            <button class="btn btn-primary btn-sm" style="margin-top:var(--space-sm)" onclick="aiResearch()">Search</button>
+            <div class="ai-card-output" id="ai-rs-out"></div>
+          </div>
+          <div class="ai-card">
+            <div class="ai-card-title">Student performance</div>
+            <input class="form-input" id="ai-pf-sid" type="number" placeholder="Student ID" />
+            <button class="btn btn-primary btn-sm" style="margin-top:var(--space-sm)" onclick="aiPerf()">Analyze</button>
+            <div class="ai-card-output" id="ai-pf-out"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const BASE_URL = `http://${window.location.hostname}:8000`;
+const API = `${BASE_URL}/api/v1`;
+
+/* ── Pagination State ── */
+const limit = 10;
+const currentPage = { users: 0, courses: 0, enrollments: 0, assignments: 0, progress: 0, announcements: 0, payments: 0, reviews: 0, certifications: 0 };
+
+function updatePagination(resource, total, skip) {
+  const current = skip / limit + 1;
+  const totalPages = Math.ceil(total / limit) || 1;
+  document.getElementById(`${resource}-page-info`).textContent = `Page ${current} of ${totalPages} (${total} total)`;
+  document.getElementById(`${resource}-prev`).disabled = skip === 0;
+  document.getElementById(`${resource}-next`).disabled = (skip + limit) >= total;
+  currentPage[resource] = skip;
+}
+
+/* ── Theme toggle ── */
+function getEffectiveTheme() {
+  const saved = localStorage.getItem('color-scheme');
+  if (saved === 'dark') return 'dark';
+  if (saved === 'light') return 'light';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function applyTheme(theme) {
+  const meta = document.querySelector('meta[name="color-scheme"]');
+  document.documentElement.classList.remove('light', 'dark');
+  if (theme === 'dark') {
+    meta.content = 'dark';
+    document.documentElement.classList.add('dark');
+  } else {
+    meta.content = 'light';
+    document.documentElement.classList.add('light');
+  }
+  document.getElementById('icon-sun').style.display = theme === 'dark' ? 'block' : 'none';
+  document.getElementById('icon-moon').style.display = theme === 'dark' ? 'none' : 'block';
+}
+
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const current = getEffectiveTheme();
+  const next = current === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('color-scheme', next);
+  applyTheme(next);
+});
+
+// Listen for system changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  if (!localStorage.getItem('color-scheme')) applyTheme(getEffectiveTheme());
+});
+applyTheme(getEffectiveTheme());
+
+
+/* ── Toast ── */
+function toast(msg, isError) {
+  const el = document.createElement('div');
+  el.className = 'toast' + (isError ? ' error' : '');
+  el.textContent = msg;
+  document.getElementById('toast-container').appendChild(el);
+  setTimeout(() => el.remove(), 4000);
+}
+
+/* ── API health ── */
+async function checkApi() {
+  try {
+    const r = await fetch(`${BASE_URL}/health`, { signal: AbortSignal.timeout(3000) });
+    if (r.ok) {
+      const data = await r.json();
+      document.getElementById('status-dot').className = 'status-dot';
+      document.getElementById('status-text').textContent = 'API connected';
+      document.getElementById('status-version').textContent = `v${data.version}`;
+    } else throw 0;
+  } catch {
+    document.getElementById('status-dot').className = 'status-dot offline';
+    document.getElementById('status-text').textContent = 'API offline';
+    document.getElementById('status-version').textContent = '';
+  }
+}
+
+/* ── Navigation ── */
+const titles = {
+  dashboard:'Dashboard', users:'Users', courses:'Courses', enrollments:'Enrollments',
+  assignments:'Assignments', progress:'Progress', announcements:'Announcements',
+  payments:'Payments', reviews:'Reviews', certifications:'Certifications', ai:'AI Tools'
+};
+const subs = {
+  dashboard:'Overview', users:'Manage users', courses:'Manage courses', enrollments:'Manage enrollments',
+  assignments:'Course tasks', progress:'Student tracking', announcements:'Course news',
+  payments:'Payment records', reviews:'Course reviews', certifications:'Issued certificates', ai:'Intelligent features'
+};
+function go(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('s-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  document.getElementById('topbar-title').textContent = titles[name] || name;
+  document.getElementById('topbar-sub').textContent = subs[name] || '';
+  const loaders = { 
+    dashboard:loadDashboard, users:()=>loadUsers(0), courses:()=>loadCourses(0), 
+    enrollments:()=>loadEnrollments(0), assignments:()=>loadAssignments(0), 
+    progress:()=>loadProgress(0), announcements:()=>loadAnnouncements(0),
+    payments:()=>loadPayments(0), reviews:()=>loadReviews(0), certifications:()=>loadCerts(0) 
+  };
+  if (loaders[name]) loaders[name]();
+}
+function toggle(id) { const el = document.getElementById(id); el.style.display = el.style.display === 'none' ? '' : 'none'; }
+function fmtDate(s) { return s ? new Date(s).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}) : '–'; }
+function emptyRow(n, msg) { return `<tr><td colspan="${n}"><div class="empty-state">${msg||'No records yet'}</div></td></tr>`; }
+
+async function del(resource, id, fn) {
+  if (!confirm(`Delete ${resource.slice(0,-1)} #${id}?`)) return;
+  try {
+    const r = await fetch(`${API}/${resource}/${id}`, {method:'DELETE'});
+    if (!r.ok) throw new Error((await r.json()).detail);
+    toast(`Deleted #${id}`);
+    fn(currentPage[resource]);
+  } catch(e) { toast(e.message, true); }
+}
+
+/* ── Dashboard ── */
+async function loadDashboard() {
+  const ep = ['users','courses','enrollments','assignments','payments','certifications'];
+  const ids = ['c-users','c-courses','c-enrollments','c-assignments','c-payments','c-certs'];
+  const res = await Promise.allSettled(ep.map(e => fetch(`${API}/${e}?limit=1`).then(r=>r.json())));
+  res.forEach((r,i) => { document.getElementById(ids[i]).textContent = r.status==='fulfilled' ? r.value.total : '–'; });
+  
+  // Load recent courses
+  const d = await fetch(`${API}/courses?limit=5`).then(r=>r.json()).catch(()=>({items:[]}));
+  const courses = d.items || [];
+  const tb = document.querySelector('#dash-table tbody');
+  tb.innerHTML = courses.length ? courses.map(c=>`<tr><td>${c.id}</td><td class="mono">${c.name}</td><td>${c.title}</td><td>${c.category||'–'}</td><td>${c.duration||'–'}</td><td><span class="badge ${c.is_active?'badge-active':'badge-inactive'}">${c.is_active?'Active':'Inactive'}</span></td></tr>`).join('') : emptyRow(6);
+}
+
+/* ── Users ── */
+async function loadUsers(skip = 0) {
+  const q = document.getElementById('search-users').value;
+  const tb = document.querySelector('#users-table tbody');
+  try {
+    const d = await fetch(`${API}/users?skip=${skip}&limit=${limit}${q ? '&q='+encodeURIComponent(q) : ''}`).then(r=>r.json());
+    tb.innerHTML = d.items.length ? d.items.map(u=>`<tr><td>${u.id}</td><td>${u.name}</td><td class="mono">${u.email}</td><td><span class="badge">${u.role}</span></td><td><span class="badge ${u.is_active?'badge-active':'badge-inactive'}">${u.is_active?'Active':'Inactive'}</span></td><td>${fmtDate(u.created_at)}</td><td><button class="btn btn-danger btn-sm" onclick="del('users',${u.id},loadUsers)">Delete</button></td></tr>`).join('') : emptyRow(7);
+    updatePagination('users', d.total, skip);
+  } catch { tb.innerHTML = emptyRow(7,'Failed to load'); }
+}
+async function submitUser(e) {
+  e.preventDefault();
+  const btn = document.getElementById('user-btn'); btn.innerHTML='<span class="loader"></span>'; btn.disabled=true;
+  try {
+    const r = await fetch(`${API}/users`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({
+      name:document.getElementById('u-name').value, email:document.getElementById('u-email').value,
+      phone:document.getElementById('u-phone').value||null, age:document.getElementById('u-age').value?+document.getElementById('u-age').value:null,
+      role:document.getElementById('u-role').value, gender:document.getElementById('u-gender').value||null, bio:document.getElementById('u-bio').value||null
+    })});
+    const d = await r.json(); if(!r.ok) throw new Error(d.detail);
+    toast(`User created (#${d.id})`); document.getElementById('user-form').reset(); toggle('user-form-wrap'); loadUsers(0);
+  } catch(err) { toast(err.message, true); }
+  finally { btn.textContent='Create'; btn.disabled=false; }
+}
+
+/* ── Courses ── */
+async function loadCourses(skip = 0) {
+  const q = document.getElementById('search-courses').value;
+  const tb = document.querySelector('#courses-table tbody');
+  try {
+    const d = await fetch(`${API}/courses?skip=${skip}&limit=${limit}${q ? '&q='+encodeURIComponent(q) : ''}`).then(r=>r.json());
+    tb.innerHTML = d.items.length ? d.items.map(c=>`<tr><td>${c.id}</td><td class="mono">${c.name}</td><td>${c.title}</td><td>${c.category||'–'}</td><td>${c.duration||'–'}</td><td>${c.instructor_id||'–'}</td><td><span class="badge ${c.is_active?'badge-active':'badge-inactive'}">${c.is_active?'Active':'Inactive'}</span></td><td><button class="btn btn-danger btn-sm" onclick="del('courses',${c.id},loadCourses)">Delete</button></td></tr>`).join('') : emptyRow(8);
+    updatePagination('courses', d.total, skip);
+  } catch { tb.innerHTML = emptyRow(8,'Failed to load'); }
+}
+async function submitCourse(e) {
+  e.preventDefault();
+  const btn = document.getElementById('course-btn'); btn.innerHTML='<span class="loader"></span>'; btn.disabled=true;
+  const iv = document.getElementById('c-instr').value;
+  try {
+    const r = await fetch(`${API}/courses`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({
+      name:document.getElementById('c-name').value, title:document.getElementById('c-title').value,
+      category:document.getElementById('c-cat').value||null, duration:document.getElementById('c-dur').value||null,
+      description:document.getElementById('c-desc').value||null, prerequisites:document.getElementById('c-prereq').value||null,
+      video_link:document.getElementById('c-vid').value||null, instructor_id:iv?+iv:null
+    })});
+    const d = await r.json(); if(!r.ok) throw new Error(d.detail);
+    toast(`Course created (#${d.id})`); document.getElementById('course-form').reset(); toggle('course-form-wrap'); loadCourses(0);
+  } catch(err) { toast(err.message, true); }
+  finally { btn.textContent='Create'; btn.disabled=false; }
+}
+
+/* ── Assignments (NEW) ── */
+async function loadAssignments(skip = 0) {
+  const tb = document.querySelector('#assignments-table tbody');
+  try {
+    const d = await fetch(`${API}/assignments?skip=${skip}&limit=${limit}`).then(r=>r.json());
+    tb.innerHTML = d.items.length ? d.items.map(a=>`<tr><td>${a.id}</td><td>${a.course_id}</td><td>${a.title}</td><td>${a.max_score||'–'}</td><td>${fmtDate(a.created_at)}</td><td><button class="btn btn-danger btn-sm" onclick="del('assignments',${a.id},loadAssignments)">Delete</button></td></tr>`).join('') : emptyRow(6);
+    updatePagination('assignments', d.total, skip);
+  } catch { tb.innerHTML = emptyRow(6,'Failed to load'); }
+}
+async function submitAssignment(e) {
+  e.preventDefault();
+  try {
+    const sc = document.getElementById('a-score').value;
+    const r = await fetch(`${API}/assignments`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({
+      course_id: +document.getElementById('a-cid').value, title: document.getElementById('a-title').value,
+      max_score: sc ? parseFloat(sc) : null, description: document.getElementById('a-desc').value || null
+    })});
+    const d = await r.json(); if(!r.ok) throw new Error(d.detail);
+    toast(`Assignment created (#${d.id})`); document.getElementById('assignment-form').reset(); toggle('assignment-form-wrap'); loadAssignments(0);
+  } catch(err) { toast(err.message, true); }
+}
+
+/* ── Progress (NEW) ── */
+async function loadProgress(skip = 0) {
+  const tb = document.querySelector('#progress-table tbody');
+  try {
+    const d = await fetch(`${API}/progress?skip=${skip}&limit=${limit}`).then(r=>r.json());
+    tb.innerHTML = d.items.length ? d.items.map(p=>`<tr><td>${p.id}</td><td>${p.student_id}</td><td>${p.course_id}</td><td>
+      <div style="background:var(--border);height:6px;border-radius:3px;margin-bottom:4px;overflow:hidden"><div style="background:var(--accent);height:100%;width:${p.completion_percentage}%"></div></div>
+      ${p.completion_percentage}%</td><td><span class="badge">${p.status.replace('_',' ')}</span></td><td>${fmtDate(p.last_accessed)}</td></tr>`).join('') : emptyRow(6);
+    updatePagination('progress', d.total, skip);
+  } catch { tb.innerHTML = emptyRow(6,'Failed to load'); }
+}
+async function submitProgress(e) {
+  e.preventDefault();
+  try {
+    const pc = document.getElementById('p-pct').value;
+    const r = await fetch(`${API}/progress`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({
+      student_id: +document.getElementById('p-sid').value, course_id: +document.getElementById('p-cid').value,
+      completion_percentage: pc ? parseFloat(pc) : 0, status: document.getElementById('p-status').value
+    })});
+    const d = await r.json(); if(!r.ok) throw new Error(d.detail);
+    toast(`Progress saved (#${d.id})`); document.getElementById('progress-form').reset(); toggle('progress-form-wrap'); loadProgress(0);
+  } catch(err) { toast(err.message, true); }
+}
+
+/* ── Announcements (NEW) ── */
+async function loadAnnouncements(skip = 0) {
+  const tb = document.querySelector('#announcements-table tbody');
+  try {
+    const d = await fetch(`${API}/announcements?skip=${skip}&limit=${limit}`).then(r=>r.json());
+    tb.innerHTML = d.items.length ? d.items.map(a=>`<tr><td>${a.id}</td><td>${a.course_id}</td><td>${a.author_id}</td><td>${a.title}</td><td>${fmtDate(a.created_at)}</td><td><button class="btn btn-danger btn-sm" onclick="del('announcements',${a.id},loadAnnouncements)">Delete</button></td></tr>`).join('') : emptyRow(6);
+    updatePagination('announcements', d.total, skip);
+  } catch { tb.innerHTML = emptyRow(6,'Failed to load'); }
+}
+async function submitAnnouncement(e) {
+  e.preventDefault();
+  try {
+    const r = await fetch(`${API}/announcements`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({
+      course_id: +document.getElementById('an-cid').value, author_id: +document.getElementById('an-aid').value,
+      title: document.getElementById('an-title').value, content: document.getElementById('an-content').value
+    })});
+    const d = await r.json(); if(!r.ok) throw new Error(d.detail);
+    toast(`Announcement posted (#${d.id})`); document.getElementById('announce-form').reset(); toggle('announce-form-wrap'); loadAnnouncements(0);
+  } catch(err) { toast(err.message, true); }
+}
+
+/* ── Enrollments ── */
+async function loadEnrollments(skip = 0) {
+  const tb = document.querySelector('#enrollments-table tbody');
+  try {
+    const d = await fetch(`${API}/enrollments?skip=${skip}&limit=${limit}`).then(r=>r.json());
+    tb.innerHTML = d.items.length ? d.items.map(en=>`<tr><td>${en.id}</td><td>${en.student_id}</td><td>${en.course_id}</td><td>${en.payment_id||'–'}</td><td>${fmtDate(en.created_at)}</td><td><button class="btn btn-danger btn-sm" onclick="del('enrollments',${en.id},loadEnrollments)">Delete</button></td></tr>`).join('') : emptyRow(6);
+    updatePagination('enrollments', d.total, skip);
+  } catch { tb.innerHTML = emptyRow(6,'Failed to load'); }
+}
+async function submitEnroll(e) {
+  e.preventDefault();
+  const pv = document.getElementById('en-pid').value;
+  try {
+    const r = await fetch(`${API}/enrollments`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({
+      student_id:+document.getElementById('en-sid').value, course_id:+document.getElementById('en-cid').value, payment_id:pv?+pv:null
+    })});
+    const d = await r.json(); if(!r.ok) throw new Error(d.detail);
+    toast('Enrolled'); document.getElementById('enroll-form').reset(); toggle('enroll-form-wrap'); loadEnrollments(0);
+  } catch(err) { toast(err.message, true); }
+}
+
+/* ── Payments ── */
+async function loadPayments(skip = 0) {
+  const tb = document.querySelector('#payments-table tbody');
+  try {
+    const d = await fetch(`${API}/payments?skip=${skip}&limit=${limit}`).then(r=>r.json());
+    tb.innerHTML = d.items.length ? d.items.map(p=>`<tr><td>${p.id}</td><td>${p.student_id}</td><td>${p.course_id}</td><td class="mono">${p.transaction_id}</td><td>${fmtDate(p.created_at)}</td><td><button class="btn btn-danger btn-sm" onclick="del('payments',${p.id},loadPayments)">Delete</button></td></tr>`).join('') : emptyRow(6);
+    updatePagination('payments', d.total, skip);
+  } catch { tb.innerHTML = emptyRow(6,'Failed to load'); }
+}
+async function submitPayment(e) {
+  e.preventDefault();
+  try {
+    const r = await fetch(`${API}/payments`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({
+      student_id:+document.getElementById('py-sid').value, course_id:+document.getElementById('py-cid').value,
+      transaction_id:document.getElementById('py-txn').value
+    })});
+    const d = await r.json(); if(!r.ok) throw new Error(d.detail);
+    toast(`Payment recorded (#${d.id})`); document.getElementById('pay-form').reset(); toggle('pay-form-wrap'); loadPayments(0);
+  } catch(err) { toast(err.message, true); }
+}
+
+/* ── Reviews ── */
+async function loadReviews(skip = 0) {
+  const tb = document.querySelector('#reviews-table tbody');
+  try {
+    const d = await fetch(`${API}/reviews?skip=${skip}&limit=${limit}`).then(r=>r.json());
+    tb.innerHTML = d.items.length ? d.items.map(rv=>`<tr><td>${rv.id}</td><td>${rv.student_id}</td><td>${rv.course_id}</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${rv.description}</td><td><span class="badge ${rv.is_active?'badge-active':'badge-inactive'}">${rv.is_active?'Yes':'No'}</span></td><td>${fmtDate(rv.created_at)}</td><td><button class="btn btn-danger btn-sm" onclick="del('reviews',${rv.id},loadReviews)">Delete</button></td></tr>`).join('') : emptyRow(7);
+    updatePagination('reviews', d.total, skip);
+  } catch { tb.innerHTML = emptyRow(7,'Failed to load'); }
+}
+async function submitReview(e) {
+  e.preventDefault();
+  try {
+    const r = await fetch(`${API}/reviews`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({
+      student_id:+document.getElementById('rv-sid').value, course_id:+document.getElementById('rv-cid').value,
+      description:document.getElementById('rv-desc').value
+    })});
+    const d = await r.json(); if(!r.ok) throw new Error(d.detail);
+    toast('Review submitted'); document.getElementById('rev-form').reset(); toggle('rev-form-wrap'); loadReviews(0);
+  } catch(err) { toast(err.message, true); }
+}
+
+/* ── Certifications ── */
+async function loadCerts(skip = 0) {
+  const tb = document.querySelector('#certs-table tbody');
+  try {
+    const d = await fetch(`${API}/certifications?skip=${skip}&limit=${limit}`).then(r=>r.json());
+    tb.innerHTML = d.items.length ? d.items.map(ct=>`<tr><td>${ct.id}</td><td>${ct.student_id}</td><td>${ct.course_id}</td><td>${ct.certificate_url?`<a href="${ct.certificate_url}" target="_blank" style="color:var(--text-secondary);text-decoration:underline">View</a>`:'–'}</td><td>${fmtDate(ct.issued_date)}</td><td><button class="btn btn-danger btn-sm" onclick="del('certifications',${ct.id},loadCerts)">Delete</button></td></tr>`).join('') : emptyRow(6);
+    updatePagination('certifications', d.total, skip);
+  } catch { tb.innerHTML = emptyRow(6,'Failed to load'); }
+}
+async function submitCert(e) {
+  e.preventDefault();
+  try {
+    const r = await fetch(`${API}/certifications`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({
+      student_id:+document.getElementById('ct-sid').value, course_id:+document.getElementById('ct-cid').value,
+      certificate_url:document.getElementById('ct-url').value||null
+    })});
+    const d = await r.json(); if(!r.ok) throw new Error(d.detail);
+    toast(`Certificate issued (#${d.id})`); document.getElementById('cert-form').reset(); toggle('cert-form-wrap'); loadCerts(0);
+  } catch(err) { toast(err.message, true); }
+}
+
+/* ── AI tools ── */
+async function aiAsk() {
+  const q = document.getElementById('ai-q').value.trim();
+  if (!q) return toast('Enter a question', true);
+  try { const d = await fetch(`${API}/answer?question=${encodeURIComponent(q)}`).then(r=>r.json()); document.getElementById('ai-q-out').textContent = d.answer; } catch(e) { toast(e.message, true); }
+}
+async function aiQuiz() {
+  const cid = document.getElementById('ai-qz-cid').value;
+  if (!cid) return toast('Enter course ID', true);
+  const n = document.getElementById('ai-qz-n').value || 5;
+  try {
+    const d = await fetch(`${API}/quiz/${cid}?num_questions=${n}`, {method:'POST'}).then(r=>r.json());
+    document.getElementById('ai-qz-out').innerHTML = d.questions.map((q,i)=>`<div style="margin-bottom:8px"><strong>Q${i+1}.</strong> ${q.question}<br><span style="font-size:0.75rem">${q.options.join(' · ')}</span></div>`).join('');
+  } catch(e) { toast(e.message, true); }
+}
+async function aiTeacher() {
+  const cid = document.getElementById('ai-vt-cid').value, q = document.getElementById('ai-vt-q').value.trim();
+  if (!cid||!q) return toast('Enter course ID and question', true);
+  try { const d = await fetch(`${API}/virtual_teacher/${cid}/ask?question=${encodeURIComponent(q)}`).then(r=>r.json()); document.getElementById('ai-vt-out').textContent = d.answer; } catch(e) { toast(e.message, true); }
+}
+async function aiResearch() {
+  const dom = document.getElementById('ai-rs-d').value.trim();
+  if (!dom) return toast('Enter a domain', true);
+  try { const d = await fetch(`${API}/research?domain=${encodeURIComponent(dom)}`).then(r=>r.json()); document.getElementById('ai-rs-out').innerHTML = d.findings.map(f=>`<div>· ${f}</div>`).join(''); } catch(e) { toast(e.message, true); }
+}
+async function aiPerf() {
+  const sid = document.getElementById('ai-pf-sid').value;
+  if (!sid) return toast('Enter student ID', true);
+  try {
+    const d = await fetch(`${API}/performance/${sid}`).then(r=>r.json());
+    document.getElementById('ai-pf-out').innerHTML = `Score: ${(d.performance_score*100).toFixed(0)}%\nStrengths: ${d.strengths.join(', ')}\nWeaknesses: ${d.weaknesses.join(', ')}\nTips: ${d.recommendations.join('; ')}`;
+  } catch(e) { toast(e.message, true); }
+}
+
+/* ── Init ── */
+checkApi();
+setInterval(checkApi, 30000);
+loadDashboard();
+lucide.createIcons();
+</script>
+</body>
+</html>

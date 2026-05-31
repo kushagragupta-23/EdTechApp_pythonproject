@@ -1,0 +1,379 @@
+INFO:     Will watch for changes in these directories: ['/Users/milindnevrekar/Downloads/EdTechApp_pythonproject/backend']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [8325] using StatReload
+INFO:     Started server process [8327]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:53975 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53977 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53979 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53981 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53983 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53985 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53987 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53989 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53991 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53993 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53995 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53997 - "POST /api/v1/courses HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53999 - "POST /api/v1/courses HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54001 - "POST /api/v1/courses HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54003 - "POST /api/v1/courses HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54005 - "POST /api/v1/courses HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54007 - "POST /api/v1/courses HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54009 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54011 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54013 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54015 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54017 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54019 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54021 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54023 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54025 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54027 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54029 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54031 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54033 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54035 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54037 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54039 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54041 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54043 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54045 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54047 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54049 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54051 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54053 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54055 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54057 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54059 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54061 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54063 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54065 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54067 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54069 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54071 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54073 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54075 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54077 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54079 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54081 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54083 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54085 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54087 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54089 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54091 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54093 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54095 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54097 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54099 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54101 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54103 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54105 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54107 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54109 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54111 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54113 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54115 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54117 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54119 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54121 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54123 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54125 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54127 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54129 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54131 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54133 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54135 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54137 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54139 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54141 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54143 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54145 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54147 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54149 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54151 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54155 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54157 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54159 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54161 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54163 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54165 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54167 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54169 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54171 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54173 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54175 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54177 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54179 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54181 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54183 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54185 - "POST /api/v1/certifications HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54187 - "POST /api/v1/certifications HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54189 - "POST /api/v1/certifications HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54191 - "POST /api/v1/certifications HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54193 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54195 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54197 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54199 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54201 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54203 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54205 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54207 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54209 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54211 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54213 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54215 - "GET /api/v1/users?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54217 - "GET /api/v1/courses?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54219 - "GET /api/v1/enrollments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54221 - "GET /api/v1/payments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54223 - "GET /api/v1/reviews?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54225 - "GET /api/v1/certifications?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54227 - "GET /api/v1/assignments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54229 - "GET /api/v1/progress?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54231 - "GET /api/v1/announcements?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54274 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54279 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54279 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54285 - "GET /api/v1/payments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54281 - "GET /api/v1/users?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54283 - "GET /api/v1/enrollments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54279 - "GET /api/v1/certifications?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54282 - "GET /api/v1/courses?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54284 - "GET /api/v1/assignments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54285 - "GET /api/v1/courses?limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54287 - "GET /api/v1/users?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54287 - "GET /api/v1/courses?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54287 - "GET /api/v1/enrollments?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54287 - "GET /api/v1/assignments?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54287 - "GET /api/v1/progress?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54287 - "GET /api/v1/announcements?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54287 - "GET /api/v1/payments?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54296 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54298 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54300 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54303 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54309 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54309 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54309 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54312 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54321 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54323 - "GET /health HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'seed_data.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [8327]
+INFO:     Started server process [8438]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:54341 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54343 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54345 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54347 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54349 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54351 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54353 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54355 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54357 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54359 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54361 - "POST /api/v1/courses HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54363 - "POST /api/v1/courses HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54365 - "POST /api/v1/courses HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54367 - "POST /api/v1/courses HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54369 - "POST /api/v1/courses HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54371 - "POST /api/v1/courses HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54373 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54375 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54377 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54379 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54381 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54383 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54385 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54387 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54389 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54391 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54393 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54395 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54397 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54399 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54401 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54403 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54405 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54407 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54409 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54411 - "POST /api/v1/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54413 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54415 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54417 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54419 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54421 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54423 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54425 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54427 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54429 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54431 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54433 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54435 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54437 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54439 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54441 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54443 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54445 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54447 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54449 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54451 - "POST /api/v1/enrollments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54453 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54455 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54457 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54459 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54461 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54463 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54465 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54467 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54469 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54471 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54473 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54475 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54477 - "POST /api/v1/assignments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54479 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54481 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54483 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54485 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54487 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54489 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54491 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54493 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54495 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54497 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54499 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54501 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54503 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54505 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54507 - "POST /api/v1/reviews HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54509 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54511 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54513 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54515 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54517 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54519 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54521 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54523 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54525 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54527 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54529 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54531 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54533 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54535 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54537 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54539 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54541 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54543 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54545 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54547 - "POST /api/v1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54549 - "POST /api/v1/certifications HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54551 - "POST /api/v1/certifications HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54553 - "POST /api/v1/certifications HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54555 - "POST /api/v1/certifications HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54557 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54559 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54561 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54563 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54565 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54567 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54569 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54571 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54573 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54575 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54577 - "POST /api/v1/announcements HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54579 - "GET /api/v1/users?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54581 - "GET /api/v1/courses?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54583 - "GET /api/v1/enrollments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54585 - "GET /api/v1/payments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54587 - "GET /api/v1/reviews?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54589 - "GET /api/v1/certifications?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54591 - "GET /api/v1/assignments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54593 - "GET /api/v1/progress?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54595 - "GET /api/v1/announcements?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54747 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54747 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54749 - "GET /api/v1/users?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54751 - "GET /api/v1/enrollments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54750 - "GET /api/v1/courses?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54752 - "GET /api/v1/assignments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54747 - "GET /api/v1/certifications?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54753 - "GET /api/v1/payments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54749 - "GET /api/v1/courses?limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54751 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54749 - "GET /api/v1/payments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54750 - "GET /api/v1/users?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54753 - "GET /api/v1/assignments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54752 - "GET /api/v1/courses?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54747 - "GET /api/v1/enrollments?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54751 - "GET /api/v1/certifications?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54749 - "GET /api/v1/courses?limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54750 - "GET /api/v1/users?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54753 - "GET /api/v1/courses?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54752 - "GET /api/v1/enrollments?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54750 - "GET /api/v1/assignments?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54750 - "GET /api/v1/progress?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54750 - "GET /api/v1/announcements?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54750 - "GET /api/v1/payments?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54750 - "GET /api/v1/reviews?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54750 - "GET /api/v1/certifications?skip=0&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54756 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54758 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54760 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54762 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54762 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54764 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54774 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54777 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54780 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54782 - "GET /health HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'seed_data.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [8438]
+INFO:     Started server process [10015]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'seed_data.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [10015]
+INFO:     Started server process [10026]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:54991 - "POST /api/v1/users HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:54993 - "POST /api/v1/users HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:54995 - "POST /api/v1/users HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:54997 - "POST /api/v1/users HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:54999 - "POST /api/v1/users HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:55001 - "POST /api/v1/users HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:55003 - "POST /api/v1/users HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:55005 - "POST /api/v1/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55007 - "POST /api/v1/users HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:55009 - "POST /api/v1/users HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:55011 - "POST /api/v1/courses HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:55013 - "POST /api/v1/courses HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:55015 - "POST /api/v1/courses HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:55017 - "POST /api/v1/courses HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:55019 - "POST /api/v1/courses HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:55021 - "POST /api/v1/courses HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:55023 - "POST /api/v1/assignments HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:55025 - "POST /api/v1/assignments HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:55027 - "POST /api/v1/assignments HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:55029 - "POST /api/v1/assignments HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:55031 - "POST /api/v1/assignments HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:55033 - "POST /api/v1/assignments HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:55035 - "POST /api/v1/assignments HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:55037 - "POST /api/v1/assignments HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:55039 - "POST /api/v1/assignments HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:55041 - "POST /api/v1/assignments HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:55043 - "POST /api/v1/assignments HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:55045 - "POST /api/v1/assignments HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:55047 - "POST /api/v1/assignments HTTP/1.1" 422 Unprocessable Content
